@@ -15,3 +15,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
         def application do
           [applications: [:sec_filing_page_break_counter]]
         end
+
+## License
+
+This library is under the MIT [license](LICENSE.md).
