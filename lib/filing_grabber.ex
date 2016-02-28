@@ -16,21 +16,17 @@ defmodule SecFilingPageBreakCounter.FilingGrabber do
   def inspect_entries, do: inspect_entries(entries_from_feed)
   def inspect_entries([]), do: :ok
   def inspect_entries([entry|rest_of_entries]) do
+    entry |> inspect_entry
+    rest_of_entries |> inspect_entries
+  end
+
+  def inspect_entry(entry) do
     IO.puts "Inspecting #{entry.title}"
     response =
       entry.link
       |> convert_sec_url_link_to_txt
       |> HTTPoison.get!
     counts = response.body |> SecFilingPageBreakCounter.page_break_counts
-    IO.puts "pba: #{counts.pba}, pbb: #{counts.pbb}, pba_caps: #{counts.pba_caps}, pbb_caps: #{counts.pbb_caps}"
-
-    rest_of_entries |> inspect_entries
-  end
-
-  def inspect_entry(entry) do
-    IO.puts "Inspecting #{entry.title}"
-    response = entry.link |> HTTPoison.get!
-    counts = response.body |> SecFilingPageBreakCounter.page_break_count
     IO.puts "pba: #{counts.pba}, pbb: #{counts.pbb}, pba_caps: #{counts.pba_caps}, pbb_caps: #{counts.pbb_caps}"
   end
 end
