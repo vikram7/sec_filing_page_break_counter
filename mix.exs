@@ -4,7 +4,7 @@ defmodule SecFilingPageBreakCounter.Mixfile do
   def project do
     [app: :sec_filing_page_break_counter,
      version: "0.0.1",
-     elixir: "~> 1.1",
+     elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps]
