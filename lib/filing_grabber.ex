@@ -4,7 +4,7 @@ defmodule SecFilingPageBreakCounter.FilingGrabber do
   @endpoint "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&CIK=&type=10-K&company=&dateb=&owner=include&start=0&count=100&output=atom"
 
   def retrieve_filing_entries do
-    feed = get!(@endpoint).body
+    feed = File.read!("priv/data/filings_atom_feed.xml")
     |> SecLatestFilingsRssFeedParser.parse!
     feed.entries
   end
@@ -12,8 +12,6 @@ defmodule SecFilingPageBreakCounter.FilingGrabber do
   def inspect_filing(filing) do
     IO.puts "Inspecting #{filing.title}"
     response = filing.link |> HTTPoison.get!
-    count = response.body |> SecFilingPageBreakCounter.page_break_count
-    IO.puts "#{filing.title} has #{count} page breaks!"
-    count
+    counts = response.body |> SecFilingPageBreakCounter.page_break_count
   end
 end
