@@ -5,7 +5,7 @@ defmodule SecFilingPageBreakCounterFilingGrabberTest do
     entries = SecFilingPageBreakCounter.FilingGrabber.entries_from_feed
     count = length entries
     [entry|_] = entries
-    assert count == 200
+    assert count == 199
     assert entry.cik_id
     assert entry.link
   end
