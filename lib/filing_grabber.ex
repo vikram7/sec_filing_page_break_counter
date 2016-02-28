@@ -11,8 +11,9 @@ defmodule SecFilingPageBreakCounter.FilingGrabber do
 
   def inspect_filing(filing) do
     IO.puts "Inspecting #{filing.title}"
-    response = filing.link |> HTTPoison.get!(link)
+    response = filing.link |> HTTPoison.get!
     count = response.body |> SecFilingPageBreakCounter.page_break_count
     IO.puts "#{filing.title} has #{count} page breaks!"
+    count
   end
 end
