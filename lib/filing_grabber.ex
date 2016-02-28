@@ -27,6 +27,12 @@ defmodule SecFilingPageBreakCounter.FilingGrabber do
       |> convert_sec_url_link_to_txt
       |> HTTPoison.get!
     counts = response.body |> SecFilingPageBreakCounter.page_break_counts
-    IO.puts "pba: #{counts.pba}, pbb: #{counts.pbb}, pba_caps: #{counts.pba_caps}, pbb_caps: #{counts.pbb_caps}"
+    write_inspected_entry(entry.title, counts)
+  end
+
+  defp write_inspected_entry(title, counts) do
+    {:ok, file} = File.open("priv/data/counts.csv", [:append, :utf8])
+    IO.puts(file, "#{title},#{counts.pba},#{counts.pbb},#{counts.pba_caps},#{counts.pbb_caps}")
+    IO.puts("Wrote #{title} to CSV!")
   end
 end
