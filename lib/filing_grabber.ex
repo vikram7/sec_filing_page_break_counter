@@ -3,15 +3,15 @@ defmodule SecFilingPageBreakCounter.FilingGrabber do
 
   @endpoint "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&CIK=&type=10-K&company=&dateb=&owner=include&start=0&count=100&output=atom"
 
-  def retrieve_filing_entries do
+  def entries_from_feed do
     feed = File.read!("priv/data/filings_atom_feed.xml")
     |> SecLatestFilingsRssFeedParser.parse!
     feed.entries
   end
 
-  def inspect_filing(filing) do
-    IO.puts "Inspecting #{filing.title}"
-    response = filing.link |> HTTPoison.get!
-    counts = response.body |> SecFilingPageBreakCounter.page_break_count
+  def inspect_entry(entry) do
+    IO.puts "Inspecting #{entry.title}"
+    response = entry.link |> HTTPoison.get!
+    response.body |> SecFilingPageBreakCounter.page_break_count
   end
 end
