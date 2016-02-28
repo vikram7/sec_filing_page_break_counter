@@ -11,10 +11,19 @@ defmodule SecFilingPageBreakCounter.Mixfile do
   end
 
   def application do
-    [applications: [:httpoison, :logger]]
+    [applications:
+      [
+        :httpoison,
+        :logger,
+        :sec_recent_filings_rss_feed_parser
+      ]
+    ]
   end
 
   defp deps do
-    [{:httpoison, "~> 0.8.0"}]
+    [
+      {:httpoison, "~> 0.8.0"},
+      {:sec_recent_filings_rss_feed_parser, "~> 0.0.1"}
+    ]
   end
 end
