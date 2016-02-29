@@ -1,5 +1,7 @@
 # SecFilingPageBreakCounter
 
+There is no standardized document format to SEC filings. In fact, something as innocuous as page breaks in documents are done in a variety of ways depending on the filer. This small tool calculates the page break method that a company filer uses along with a page count based on the page break method used.
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
